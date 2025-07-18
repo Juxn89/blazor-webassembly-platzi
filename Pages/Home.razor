@@ -1,8 +1,19 @@
 ﻿@using blazor_webassembly_platzi.Shared;
+
 @page "/"
+
+@inject IConfiguration _configuration
 
 <PageTitle>Home</PageTitle>
 
-<ModuleTitle Title="Hello, world!" />
+<ModuleTitle Title="@HelloMessage" />
 
 Welcome to your new app.
+
+@code {
+	public string HelloMessage = string.Empty;
+
+	protected override void OnInitialized(){
+		HelloMessage = _configuration["helloMessage"] ?? ":(";
+	}
+}
