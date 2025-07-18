@@ -1,0 +1,7 @@
+{
+	"recommendations": [
+		"ms-dotnettools.csharp",
+		"adrianwilczynski.blazor-snippet-pack",
+		"ms-dotnettools.csdevkit"
+	]
+}
