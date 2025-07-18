@@ -1,9 +1,11 @@
-﻿@page "/counter/{initCounter?}"
+﻿@using blazor_webassembly_platzi.Shared;
+
+@page "/counter/{initCounter?}"
 @inject ILogger<Counter> logger
 
 <PageTitle>Counter</PageTitle>
 
-<h1>Counter</h1>
+<ModuleTitle Title="Counter" />
 
 <p role="status">Current count: @currentCount</p>
 <p role="status">Current count from QueryString: @currentCountFromQuery</p>
