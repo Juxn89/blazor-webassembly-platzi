@@ -1,0 +1,38 @@
+@using blazor_webassembly_platzi.Services
+@using blazor_webassembly_platzi.Shared
+@using blazor_webassembly_platzi.Models
+
+@page "/product"
+@inject ILogger<Products> _looger
+@inject IProductService _productService
+
+<PageTitle>Products</PageTitle>
+<ModuleTitle Title="Products" />
+
+@if(products.Any()) {
+	<div class="products-container">
+		@foreach(var product in products) {
+			<div class="card">
+				<img class="card-img-top" src="@product.images[0]" alt="@product.title" loading="lazy" width="270"/>
+				<div>
+					<h4><b>@product.title</b></h4>
+					<p>@product.price.ToString("C")</p>
+				</div>
+			</div>
+		}	
+	</div>
+}else {
+	<p> There are not product to show </p>
+}
+
+@code {
+	private List<Product> products;
+
+	protected override async Task OnInitializedAsync() {
+		products = await GetProducts();
+	}
+
+	private async Task<List<Product>> GetProducts() {
+		return await _productService.Get();
+	}
+}

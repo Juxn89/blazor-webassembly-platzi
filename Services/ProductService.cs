@@ -4,21 +4,32 @@ using blazor_webassembly_platzi.Models;
 
 namespace blazor_webassembly_platzi.Services;
 
-public class ProductService
+public interface IProductService
+{
+	public Task<List<Product>?> Get();
+	public Task Add(Product product);
+	public Task Delete(int productId);
+}
+
+public class ProductService : IProductService
 {
 	private readonly HttpClient _httpClient;
 	private readonly JsonSerializerOptions _jsonSerializer;
 
-	public ProductService(HttpClient httpClient, JsonSerializerOptions jsonSerializerOptions)
+	public ProductService(HttpClient httpClient)
 	{
 		_httpClient = httpClient;
-		_jsonSerializer = jsonSerializerOptions;
+		_jsonSerializer = new JsonSerializerOptions { PropertyNameCaseInsensitive = true };
 	}
 
 	public async Task<List<Product>?> Get()
 	{
 		var products = await _httpClient.GetAsync("products");
 		var jsonProducts = await products.Content.ReadAsStringAsync();
+
+		if (!products.IsSuccessStatusCode)
+			throw new ApplicationException(jsonProducts);
+
 		return JsonSerializer.Deserialize<List<Product>>(jsonProducts);
 	}
 
