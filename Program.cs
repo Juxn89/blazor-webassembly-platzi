@@ -2,10 +2,13 @@ using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using blazor_webassembly_platzi;
 using blazor_webassembly_platzi.Services;
+using Blazored.Toast;
 
 var builder = WebAssemblyHostBuilder.CreateDefault(args);
 builder.RootComponents.Add<App>("#app");
 builder.RootComponents.Add<HeadOutlet>("head::after");
+
+builder.Services.AddBlazoredToast();
 
 var platziFakeStoreAPI = builder.Configuration.GetValue<string>("APIs:PlatziFakeStore:baseUrl");
 builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(platziFakeStoreAPI) });
