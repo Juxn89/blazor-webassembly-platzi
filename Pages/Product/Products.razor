@@ -5,9 +5,14 @@
 @page "/product"
 @inject ILogger<Products> _looger
 @inject IProductService _productService
+@inject NavigationManager navigationManager
 
 <PageTitle>Products</PageTitle>
 <ModuleTitle Title="Products" />
+
+<button class="btn btn-dark" @onclick="@(() => navigationManager.NavigateTo("/product/add"))">
+Add new product
+</button>
 
 @if(products.Any()) {
 	<div class="products-container">
